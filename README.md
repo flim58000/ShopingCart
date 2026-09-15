@@ -4,26 +4,12 @@
 
 ## เริ่มใช้งาน
 
-เปิด Terminal สองหน้าที่โฟลเดอร์เดียวกับไฟล์นี้
-
-**Terminal 1: API**
-
-```powershell
-.\scripts\Start-Api.ps1
-```
-
-**Terminal 2: Next.js**
-
-```powershell
-.\scripts\Start-Web.ps1
-```
 
 - ร้านค้า: http://localhost:3000
 - Swagger สำหรับทดลอง API: http://localhost:5056/swagger
 - ตรวจว่า API เปิดอยู่: http://localhost:5056/health
 - หยุดแต่ละเซิร์ฟเวอร์ด้วย `Ctrl+C`
 
-สคริปต์หน้าเว็บตรวจเวอร์ชัน Node.js และใช้ runtime ที่ติดตั้งพร้อม Codex ได้ เมื่อ Node.js ใน PATH เก่าเกินไป เครื่องอื่นใช้ .NET SDK 8 และ Node.js 20.9 ขึ้นไปพร้อม npm หรือ pnpm
 
 คำสั่งมาตรฐานเมื่อเครื่องพร้อม:
 
@@ -43,10 +29,6 @@ pnpm dev
 2. คลิกขวาโปรเจกต์ `ShopingCart` แล้วเลือก **Set as Startup Project**
 3. เลือกโปรไฟล์ **http** ข้างปุ่ม Run แล้วกด **F5** จะเปิด Swagger ที่พอร์ต 5056
 4. หน้า Next.js เปิดแยกด้วย `scripts/Start-Web.ps1` และเข้าร้านค้าที่ http://localhost:3000
-
-ถ้าขึ้น **MSB3026 / MSB3027 / MSB3021** พร้อมข้อความว่า `ShopingCart.exe` ถูกใช้งานอยู่ ให้หยุด API ที่เปิดจาก Terminal ด้วย `Ctrl+C` ก่อนกด F5 เพราะ Windows ไม่สามารถเขียนทับไฟล์โปรแกรมที่ยังรันอยู่ได้ ใช้ตัวรัน API จาก Visual Studio หรือ Terminal ครั้งละตัว
-
-ดูเพิ่มเติม: [การตั้งค่า Startup Project ใน Visual Studio](https://learn.microsoft.com/en-us/visualstudio/ide/how-to-set-multiple-startup-projects?view=visualstudio)
 
 ## โครงสร้างที่ควรเริ่มอ่าน
 
@@ -112,7 +94,7 @@ $env:Database__Path = 'App_Data/fresh-demo.db'
 
 ใช้ชื่อไฟล์ที่ยังไม่มีเพื่อสร้างชุดใหม่ ฐานข้อมูลเดิมยังอยู่ ส่วน browser จะเริ่มตะกร้าใหม่เมื่อไม่พบรหัสเก่า
 
-## พฤติกรรมสำคัญ
+## Business
 
 1. เพิ่มสินค้า: รวมจำนวนกับรายการเดิม และห้ามเกินสต็อก
 2. ลดเหลือ 0: ลบแถวใน CartItems
@@ -160,8 +142,6 @@ pnpm build
 
 ## ขอบเขตตัวอย่าง
 
-เป็นการชำระเงินจำลองและตะกร้าสำหรับผู้ซื้อทั่วไป ยังไม่มีบัญชีผู้ใช้หรือ payment gateway รหัสตะกร้าเก็บใน localStorage; ใบสรุปล่าสุดเก็บใน sessionStorage หากจะเพิ่มเงินจริงภายหลัง ต้องแยกสถานะการชำระเงินและจัดการผลตอบกลับจากผู้ให้บริการ
+เป็นการชำระเงินจำลองและตะกร้าสำหรับผู้ซื้อทั่วไป  รหัสตะกร้าเก็บใน localStorage; ใบสรุปล่าสุดเก็บใน sessionStorage 
 
 ค่าเริ่มต้น API อยู่พอร์ต 5056 และ frontend อยู่พอร์ต 3000 เปลี่ยน API URL ได้ด้วย `frontend/.env.local` ตาม `.env.example` และปรับ `Cors:AllowedOrigins` ให้ตรงกัน
-
-เอกสารอ้างอิง: [Dapper](https://github.com/DapperLib/Dapper), [SQLite และตัวเลข](https://www.sqlite.org/floatingpoint.html), [SQLite transactions ใน .NET](https://learn.microsoft.com/en-us/dotnet/standard/data/sqlite/transactions), [Next.js](https://nextjs.org/docs)
