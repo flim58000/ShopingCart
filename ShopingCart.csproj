@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ShopingCart.Api</RootNamespace>
+    <DefaultItemExcludes>$(DefaultItemExcludes);src/**;tests/**;frontend/**;artifacts/**;App_Data/**;.tools/**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="docs\**" />
+    <Content Remove="docs\**" />
+    <EmbeddedResource Remove="docs\**" />
+    <None Remove="docs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="src\ShopingCart.BusinessLogic\ShopingCart.BusinessLogic.csproj" />
+  </ItemGroup>
+
+</Project>

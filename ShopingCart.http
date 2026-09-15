@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:5056
+# หลัง Create Cart ให้คัดลอก id จาก response มาใส่ตรงนี้
+@cartId = 00000000-0000-0000-0000-000000000000
+
+### 1. ดูสินค้าและสต็อก
+GET {{baseUrl}}/api/products
+
+### 2. สร้างตะกร้า
+POST {{baseUrl}}/api/carts
+
+### 3. เพิ่มเมาส์ 2 ชิ้น สต็อกยังคงเดิม
+POST {{baseUrl}}/api/carts/{{cartId}}/items
+Content-Type: application/json
+
+{ "productId": 1, "quantity": 2 }
+
+### 4. อ่านตะกร้า
+GET {{baseUrl}}/api/carts/{{cartId}}
+
+### 5. ตั้งจำนวนเป็น 1 (ส่ง 0 เพื่อลบสินค้า)
+PUT {{baseUrl}}/api/carts/{{cartId}}/items/1
+Content-Type: application/json
+
+{ "quantity": 1 }
+
+### 6. ยืนยันชำระเงิน โดยส่งยอดที่เห็นจากตะกร้าล่าสุด
+POST {{baseUrl}}/api/carts/{{cartId}}/checkout
+Content-Type: application/json
+
+{ "expectedTotalSatang": 19900 }
+
+### 7. ลบรายการสินค้า (ใช้กับตะกร้าที่ยัง Open)
+DELETE {{baseUrl}}/api/carts/{{cartId}}/items/1
+
+### 8. ล้างตะกร้า (ใช้กับตะกร้าที่ยัง Open)
+DELETE {{baseUrl}}/api/carts/{{cartId}}/items
